@@ -49,3 +49,13 @@ async def read_users_me(token: str = Depends(oauth2_scheme), db: Session = Depen
 async def get_secure_data(token: str = Depends(oauth2_scheme)):
     return {"message": "This is secured data", "token": token}
 app.include_router(todo_router)
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins (for development)
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
